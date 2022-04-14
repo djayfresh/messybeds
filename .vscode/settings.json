@@ -1,6 +1,9 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
     "cSpell.words": [
-        "messybeds"
+        "AABB",
+        "minecraft",
+        "messybeds",
+        "blockpos"
     ]
 }
