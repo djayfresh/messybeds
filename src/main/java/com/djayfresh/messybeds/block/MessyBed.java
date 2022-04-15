@@ -22,9 +22,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class MessyBed extends BedBlock {
+    public String name;
 
-    public MessyBed(DyeColor dyeColor, Properties properties) {
+    public MessyBed(String name, DyeColor dyeColor, Properties properties) {
         super(dyeColor, properties);
+        this.name = name;
     }
 
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player,

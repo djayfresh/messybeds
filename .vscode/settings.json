@@ -4,6 +4,7 @@
         "AABB",
         "minecraft",
         "messybeds",
-        "blockpos"
+        "blockpos",
+        "behaviour"
     ]
 }
