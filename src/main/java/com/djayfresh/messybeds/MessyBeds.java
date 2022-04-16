@@ -136,6 +136,10 @@ public class MessyBeds {
                 for (Material material : MessySheets.CLEAN_BED_TEXTURES) {
                     event.addSprite(material.texture());
                 }
+
+                for (Material material : MessySheets.TURN_DOWN_BED_TEXTURES) {
+                    event.addSprite(material.texture());
+                }
             }
         }
 

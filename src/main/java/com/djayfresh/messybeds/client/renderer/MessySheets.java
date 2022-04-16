@@ -25,4 +25,11 @@ public class MessySheets {
             }).toArray((index) -> {
                 return new Material[index];
             });
+
+    public static final Material[] TURN_DOWN_BED_TEXTURES = Arrays.stream(DyeColor.values())
+            .sorted(Comparator.comparingInt(DyeColor::getId)).map((dyeColor) -> {
+                return new Material(Sheets.BED_SHEET, new ResourceLocation(MessyBeds.MOD_ID, "entity/turn_down_bed/" + dyeColor.getName()));
+            }).toArray((index) -> {
+                return new Material[index];
+            });
 }
