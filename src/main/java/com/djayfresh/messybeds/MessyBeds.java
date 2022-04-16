@@ -1,5 +1,6 @@
 package com.djayfresh.messybeds;
 
+import com.djayfresh.messybeds.block.MessyBedBlock;
 import com.djayfresh.messybeds.block.MessyBlocks;
 import com.djayfresh.messybeds.block.entity.MessyEntities;
 import com.djayfresh.messybeds.item.MessyItems;
@@ -9,14 +10,19 @@ import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,7 +51,6 @@ public class MessyBeds {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        // some preinit code
         LOGGER.info("HELLO FROM");
         LOGGER.info("MESSY BEDS >> {}", MessyBlocks.WHITE_BED.getRegistryName());
     }
@@ -58,39 +63,32 @@ public class MessyBeds {
         });
     }
 
-    // @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-    // public static class MinecraftEvents {
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public static class MinecraftEvents {
 
-    // @SubscribeEvent
-    // public static void onPlayerSleepInBed(final PlayerSleepInBedEvent event){
-    // LOGGER.info("HELLO from Player Slept in Bed");
+        @SubscribeEvent
+        public static void onPlayerWakeup(final PlayerWakeUpEvent event) {
+            LOGGER.info("HELLO from Player Slept in Bed");
 
-    // Level level = event.getPlayer().getLevel();
+            Level level = event.getPlayer().getLevel();
 
-    // if (level == null || level.isClientSide()){
-    // LOGGER.info("HELLO Client Side");
-    // return;
-    // }
+            if (level == null || level.isClientSide())  {
+                LOGGER.info("HELLO Client Side");
+                return;
+            }
 
-    // LOGGER.info("Bed issue >> {}", event.getResultStatus());
+            event.getPlayer().getSleepingPos().ifPresent((blockPos) -> {
+                ServerPlayer player = (ServerPlayer) event.getPlayer();
 
-    // event.getOptionalPos().ifPresent((blockPos) -> {
-    // ServerPlayer player = (ServerPlayer) event.getPlayer();
+                LOGGER.info("Player was sleeping: {}", blockPos);
 
-    // BlockState blockState = level.getBlockState(blockPos);
-    // if (blockState.isBed(level, blockPos, event.getPlayer()) &&
-    // blockState.getBlock() instanceof MessyBedBlock) {
-    // LOGGER.info("Make Bed Messy");
-    // blockState.setValue(MessyBedBlock.MESSY, true);
-
-    // level.setBlockAndUpdate(blockPos, blockState);
-    // // Use the proper language transaction component
-    // player.sendMessage((new TextComponent("Your bed is messy, make your
-    // bed.")).withStyle(ChatFormatting.YELLOW), Util.NIL_UUID);
-    // }
-    // });
-    // }
-    // }
+                BlockState blockState = level.getBlockState(blockPos);
+                if (blockState.isBed(level, blockPos, player) && blockState.getBlock() instanceof MessyBedBlock) {
+                    player.displayClientMessage(new TranslatableComponent("block.messybed.bed.messy"), true);
+                }
+            });
+        }
+    }
 
     // You can use EventBusSubscriber to automatically subscribe events on the
     // contained class (this is subscribing to the MOD

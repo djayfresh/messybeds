@@ -75,7 +75,7 @@ public class MessyBedBlock extends BedBlock {
                 
                 this.setMessy(level, blockPos, false);
 
-                player.displayClientMessage(new TranslatableComponent("block.messybed.bed.cleaded"), true);
+                player.displayClientMessage(new TranslatableComponent("block.messybed.bed.cleaned"), true);
 
                 return InteractionResult.SUCCESS;
             } else if (blockState.getValue(OCCUPIED)) {
@@ -96,7 +96,6 @@ public class MessyBedBlock extends BedBlock {
                     LOGGER.info("Safe sleep: {}", error);
 
                     this.setMessy(level, currentBlockPos, true);
-                    player.displayClientMessage(new TranslatableComponent("block.messybed.bed.messy"), true);
                 });
                 return InteractionResult.SUCCESS;
             }
