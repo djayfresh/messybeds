@@ -17,8 +17,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 import org.slf4j.Logger;
 
-@Mod("messybeds")
+@Mod(MessyBeds.MOD_ID)
 public class MessyBeds {
+    public static final String MOD_ID = "messybeds";
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public MessyBeds() {
