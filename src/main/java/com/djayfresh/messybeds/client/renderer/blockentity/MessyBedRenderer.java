@@ -3,6 +3,7 @@ package com.djayfresh.messybeds.client.renderer.blockentity;
 import com.djayfresh.messybeds.block.MessyBedBlock;
 import com.djayfresh.messybeds.block.entity.MessyBedEntity;
 import com.djayfresh.messybeds.block.entity.MessyEntities;
+import com.djayfresh.messybeds.client.renderer.MessySheets;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -69,42 +70,46 @@ public class MessyBedRenderer implements BlockEntityRenderer<MessyBedEntity> {
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
-    public void render(MessyBedEntity p_112205_, float p_112206_, PoseStack p_112207_, MultiBufferSource p_112208_,
-            int p_112209_, int p_112210_) {
-        Material material = Sheets.BED_TEXTURES[p_112205_.getColor().getId()];
-        Level level = p_112205_.getLevel();
+    public void render(MessyBedEntity entity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource,
+            int combinedLight, int combinedOverlay) {
+        Material material = Sheets.BED_TEXTURES[entity.getColor().getId()];
+        Level level = entity.getLevel();
         if (level != null) {
-            BlockState blockState = p_112205_.getBlockState();
+            BlockState blockState = entity.getBlockState();
+            if (blockState.getValue(MessyBedBlock.MESSY)){
+                material = MessySheets.MESSY_BED_TEXTURES[entity.getColor().getId()];
+            }
+            
             DoubleBlockCombiner.NeighborCombineResult<? extends MessyBedEntity> neighborCombineResult = DoubleBlockCombiner
                     .combineWithNeigbour(MessyEntities.BED.get(), MessyBedBlock::getBlockType,
                             MessyBedBlock::getConnectedDirection, ChestBlock.FACING, blockState, level,
-                            p_112205_.getBlockPos(), (p_112202_, p_112203_) -> {
+                            entity.getBlockPos(), (p_112202_, p_112203_) -> {
                                 return false;
                             });
-            int i = neighborCombineResult.<Int2IntFunction>apply(new BrightnessCombiner<>()).get(p_112209_);
-            this.renderPiece(p_112207_, p_112208_,
+            int i = neighborCombineResult.<Int2IntFunction>apply(new BrightnessCombiner<>()).get(combinedLight);
+            this.renderPiece(poseStack, bufferSource,
                     blockState.getValue(MessyBedBlock.PART) == BedPart.HEAD ? this.headRoot : this.footRoot,
-                    blockState.getValue(MessyBedBlock.FACING), material, i, p_112210_, false);
+                    blockState.getValue(MessyBedBlock.FACING), material, i, combinedOverlay, false);
         } else {
-            this.renderPiece(p_112207_, p_112208_, this.headRoot, Direction.SOUTH, material, p_112209_, p_112210_,
+            this.renderPiece(poseStack, bufferSource, this.headRoot, Direction.SOUTH, material, combinedLight, combinedOverlay,
                     false);
-            this.renderPiece(p_112207_, p_112208_, this.footRoot, Direction.SOUTH, material, p_112209_, p_112210_,
+            this.renderPiece(poseStack, bufferSource, this.footRoot, Direction.SOUTH, material, combinedLight, combinedOverlay,
                     true);
         }
 
     }
 
-    private void renderPiece(PoseStack p_173542_, MultiBufferSource p_173543_, ModelPart p_173544_, Direction p_173545_,
-            Material p_173546_, int p_173547_, int p_173548_, boolean p_173549_) {
-        p_173542_.pushPose();
-        p_173542_.translate(0.0D, 0.5625D, p_173549_ ? -1.0D : 0.0D);
-        p_173542_.mulPose(Vector3f.XP.rotationDegrees(90.0F));
-        p_173542_.translate(0.5D, 0.5D, 0.5D);
-        p_173542_.mulPose(Vector3f.ZP.rotationDegrees(180.0F + p_173545_.toYRot()));
-        p_173542_.translate(-0.5D, -0.5D, -0.5D);
-        VertexConsumer vertexConsumer = p_173546_.buffer(p_173543_, RenderType::entitySolid);
-        p_173544_.render(p_173542_, vertexConsumer, p_173547_, p_173548_);
-        p_173542_.popPose();
+    private void renderPiece(PoseStack poseStack, MultiBufferSource bufferSource, ModelPart modelPart, Direction direction,
+            Material material, int combinedLight, int combinedOverlay, boolean p_173549_) {
+        poseStack.pushPose();
+        poseStack.translate(0.0D, 0.5625D, p_173549_ ? -1.0D : 0.0D);
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
+        poseStack.translate(0.5D, 0.5D, 0.5D);
+        poseStack.mulPose(Vector3f.ZP.rotationDegrees(180.0F + direction.toYRot()));
+        poseStack.translate(-0.5D, -0.5D, -0.5D);
+        VertexConsumer vertexConsumer = material.buffer(bufferSource, RenderType::entitySolid);
+        modelPart.render(poseStack, vertexConsumer, combinedLight, combinedOverlay);
+        poseStack.popPose();
     }
 
     public static void register() {

@@ -3,12 +3,18 @@ package com.djayfresh.messybeds;
 import com.djayfresh.messybeds.block.MessyBlocks;
 import com.djayfresh.messybeds.block.entity.MessyEntities;
 import com.djayfresh.messybeds.item.MessyItems;
+import com.djayfresh.messybeds.client.renderer.MessySheets;
 import com.djayfresh.messybeds.client.renderer.blockentity.MessyBedRenderer;
 import com.mojang.logging.LogUtils;
 
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,11 +33,11 @@ public class MessyBeds {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public MessyBeds() {
-        // Register the setup method for modloading
+        // Register the setup method for mod loading
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::setup);
         eventBus.addListener(this::clientSetup);
-        
+
         MessyEntities.registerBus(eventBus);
 
         // Register ourselves for server and other game events we are interested in
@@ -40,17 +46,51 @@ public class MessyBeds {
 
     private void setup(final FMLCommonSetupEvent event) {
         // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
+        LOGGER.info("HELLO FROM");
         LOGGER.info("MESSY BEDS >> {}", MessyBlocks.WHITE_BED.getRegistryName());
     }
 
-    private void clientSetup(final FMLClientSetupEvent event){
+    private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("HELLO FROM ClIENT SETUP");
 
         event.enqueueWork(() -> {
             MessyBedRenderer.register();
         });
     }
+
+    // @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+    // public static class MinecraftEvents {
+
+    // @SubscribeEvent
+    // public static void onPlayerSleepInBed(final PlayerSleepInBedEvent event){
+    // LOGGER.info("HELLO from Player Slept in Bed");
+
+    // Level level = event.getPlayer().getLevel();
+
+    // if (level == null || level.isClientSide()){
+    // LOGGER.info("HELLO Client Side");
+    // return;
+    // }
+
+    // LOGGER.info("Bed issue >> {}", event.getResultStatus());
+
+    // event.getOptionalPos().ifPresent((blockPos) -> {
+    // ServerPlayer player = (ServerPlayer) event.getPlayer();
+
+    // BlockState blockState = level.getBlockState(blockPos);
+    // if (blockState.isBed(level, blockPos, event.getPlayer()) &&
+    // blockState.getBlock() instanceof MessyBedBlock) {
+    // LOGGER.info("Make Bed Messy");
+    // blockState.setValue(MessyBedBlock.MESSY, true);
+
+    // level.setBlockAndUpdate(blockPos, blockState);
+    // // Use the proper language transaction component
+    // player.sendMessage((new TextComponent("Your bed is messy, make your
+    // bed.")).withStyle(ChatFormatting.YELLOW), Util.NIL_UUID);
+    // }
+    // });
+    // }
+    // }
 
     // You can use EventBusSubscriber to automatically subscribe events on the
     // contained class (this is subscribing to the MOD
@@ -59,7 +99,8 @@ public class MessyBeds {
     public static class RegistryEvents {
 
         @SubscribeEvent
-        public static void onBlockEntitiesRegistry(final RegistryEvent.Register<BlockEntityType<?>> blockRegistryEvent) {
+        public static void onBlockEntitiesRegistry(
+                final RegistryEvent.Register<BlockEntityType<?>> blockRegistryEvent) {
             // Register a new block here
             LOGGER.info("HELLO from Register Block Entities");
         }
@@ -83,15 +124,31 @@ public class MessyBeds {
         }
     }
 
-    // @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    // public static class ClientRegistryEvents {
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientRegistryEvents {
 
-    //     @SubscribeEvent
-    //     public static void onBlockEntityRendererRegistry(final EntityRenderersEvent.RegisterRenderers blockEntityRendererRegistryEvent) {
-    //         // Register a new block here
-    //         LOGGER.info("HELLO from Register Block Entity Renderers");
+        @SubscribeEvent
+        public static void onTextureStitch(TextureStitchEvent.Pre event) {
+            ResourceLocation location = event.getAtlas().location();
+            if (location.equals(Sheets.BED_SHEET)) {
+                for (Material material : MessySheets.MESSY_BED_TEXTURES) {
+                    event.addSprite(material.texture());
+                }
 
-    //         blockEntityRendererRegistryEvent.registerBlockEntityRenderer(MessyEntities.BED, () -> MessyBedRenderer::new);
-    //     }
-    // }
+                for (Material material : MessySheets.CLEAN_BED_TEXTURES) {
+                    event.addSprite(material.texture());
+                }
+            }
+        }
+
+        // @SubscribeEvent
+        // public static void onBlockEntityRendererRegistry(final
+        // EntityRenderersEvent.RegisterRenderers blockEntityRendererRegistryEvent) {
+        // // Register a new block here
+        // LOGGER.info("HELLO from Register Block Entity Renderers");
+
+        // blockEntityRendererRegistryEvent.registerBlockEntityRenderer(MessyEntities.BED,
+        // () -> MessyBedRenderer::new);
+        // }
+    }
 }

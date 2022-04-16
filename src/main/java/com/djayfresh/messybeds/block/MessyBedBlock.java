@@ -3,8 +3,12 @@ package com.djayfresh.messybeds.block;
 import java.util.List;
 
 import com.djayfresh.messybeds.block.entity.MessyBedEntity;
+import com.mojang.logging.LogUtils;
+
+import org.slf4j.Logger;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,18 +21,26 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class MessyBedBlock extends BedBlock {
+    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final BooleanProperty MESSY = BooleanProperty.create("messy");
     private DyeColor color;
 
     public MessyBedBlock(DyeColor dyeColor, Properties properties) {
         super(dyeColor, properties);
         this.color = dyeColor;
+        this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT)
+                .setValue(OCCUPIED, Boolean.valueOf(false)).setValue(MESSY, Boolean.valueOf(true)));
     }
 
     @Override()
@@ -37,6 +49,7 @@ public class MessyBedBlock extends BedBlock {
         if (level.isClientSide) {
             return InteractionResult.CONSUME;
         } else {
+            LOGGER.info("Clicked on MessyBedBlock");
             if (blockState.getValue(PART) != BedPart.HEAD) {
                 blockPos = blockPos.relative(blockState.getValue(FACING));
                 blockState = level.getBlockState(blockPos);
@@ -57,6 +70,10 @@ public class MessyBedBlock extends BedBlock {
                         (double) blockPos.getY() + 0.5D, (double) blockPos.getZ() + 0.5D, 5.0F, true,
                         Explosion.BlockInteraction.DESTROY);
                 return InteractionResult.SUCCESS;
+            } else if (blockState.getValue(MESSY)) {
+                LOGGER.info("Clicked on messy bed!");
+
+                return InteractionResult.SUCCESS;
             } else if (blockState.getValue(OCCUPIED)) {
                 if (!this.kickVillagerOutOfBed(level, blockPos)) {
                     player.displayClientMessage(new TranslatableComponent("block.minecraft.bed.occupied"), true);
@@ -64,11 +81,25 @@ public class MessyBedBlock extends BedBlock {
 
                 return InteractionResult.SUCCESS;
             } else {
+                BlockPos currentBlockPos = blockPos;
+                BlockPos blockpos = blockPos.relative(blockState.getValue(FACING).getOpposite());
+
                 player.startSleepInBed(blockPos).ifLeft((p_49477_) -> {
                     if (p_49477_ != null) {
+                        LOGGER.info("Error Sleeping: {}", p_49477_.getMessage());
                         player.displayClientMessage(p_49477_.getMessage(), true);
-                    }
+                    } else {
+                        LOGGER.info("Safe sleep");
+                        BlockState currentBlockState = level.getBlockState(currentBlockPos);
+                        level.setBlock(blockpos, currentBlockState.setValue(MESSY, true), 3);
+                        level.blockUpdated(blockpos, this);
 
+                        BlockState nextBlockState = level.getBlockState(blockpos);
+                        if (nextBlockState.is(this)) {
+                            level.setBlock(blockpos, nextBlockState.setValue(MESSY, true), 3);
+                            level.blockUpdated(blockpos, this);
+                        }
+                    }
                 });
                 return InteractionResult.SUCCESS;
             }
@@ -86,7 +117,22 @@ public class MessyBedBlock extends BedBlock {
     }
 
     @Override()
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49532_) {
+        p_49532_.add(FACING, PART, OCCUPIED, MESSY);
+    }
+
+    @Override()
     public MessyBedEntity newBlockEntity(BlockPos p_152175_, BlockState p_152176_) {
         return new MessyBedEntity(p_152175_, p_152176_, this.color);
+    }
+
+    @Override()
+    public BlockState updateShape(BlockState blockState, Direction direction, BlockState newBlockState,
+            LevelAccessor levelAccessor, BlockPos blockPos, BlockPos newBlockPos) {
+        if (newBlockState.is(this) && blockState.getValue(MESSY) != newBlockState.getValue(MESSY)) {
+            blockState.setValue(MESSY, newBlockState.getValue(MESSY));
+        }
+        
+        return super.updateShape(blockState, direction, newBlockState, levelAccessor, blockPos, newBlockPos);
     }
 }
