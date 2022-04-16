@@ -40,7 +40,7 @@ public class MessyBedBlock extends BedBlock {
         super(dyeColor, properties);
         this.color = dyeColor;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT)
-                .setValue(OCCUPIED, Boolean.valueOf(false)).setValue(MESSY, Boolean.valueOf(true)));
+                .setValue(OCCUPIED, Boolean.valueOf(false)).setValue(MESSY, Boolean.valueOf(false)));
     }
 
     @Override()
@@ -72,6 +72,10 @@ public class MessyBedBlock extends BedBlock {
                 return InteractionResult.SUCCESS;
             } else if (blockState.getValue(MESSY)) {
                 LOGGER.info("Clicked on messy bed!");
+                
+                this.setMessy(level, blockPos, false);
+
+                player.displayClientMessage(new TranslatableComponent("block.messybed.bed.cleaded"), true);
 
                 return InteractionResult.SUCCESS;
             } else if (blockState.getValue(OCCUPIED)) {
@@ -82,27 +86,33 @@ public class MessyBedBlock extends BedBlock {
                 return InteractionResult.SUCCESS;
             } else {
                 BlockPos currentBlockPos = blockPos;
-                BlockPos blockpos = blockPos.relative(blockState.getValue(FACING).getOpposite());
 
                 player.startSleepInBed(blockPos).ifLeft((p_49477_) -> {
                     if (p_49477_ != null) {
                         LOGGER.info("Error Sleeping: {}", p_49477_.getMessage());
                         player.displayClientMessage(p_49477_.getMessage(), true);
-                    } else {
-                        LOGGER.info("Safe sleep");
-                        BlockState currentBlockState = level.getBlockState(currentBlockPos);
-                        level.setBlock(blockpos, currentBlockState.setValue(MESSY, true), 3);
-                        level.blockUpdated(blockpos, this);
-
-                        BlockState nextBlockState = level.getBlockState(blockpos);
-                        if (nextBlockState.is(this)) {
-                            level.setBlock(blockpos, nextBlockState.setValue(MESSY, true), 3);
-                            level.blockUpdated(blockpos, this);
-                        }
                     }
+                }).ifRight((error) -> {
+                    LOGGER.info("Safe sleep: {}", error);
+
+                    this.setMessy(level, currentBlockPos, true);
+                    player.displayClientMessage(new TranslatableComponent("block.messybed.bed.messy"), true);
                 });
                 return InteractionResult.SUCCESS;
             }
+        }
+    }
+
+    private void setMessy(Level level, BlockPos blockPos, Boolean value){
+        BlockState currentBlockState = level.getBlockState(blockPos);
+        level.setBlock(blockPos, currentBlockState.setValue(MESSY, value), 3);
+        level.blockUpdated(blockPos, this);
+
+        blockPos = blockPos.relative(currentBlockState.getValue(FACING).getOpposite());
+        BlockState nextBlockState = level.getBlockState(blockPos);
+        if (nextBlockState.is(this)) {
+            level.setBlock(blockPos, nextBlockState.setValue(MESSY, value), 3);
+            level.blockUpdated(blockPos, this);
         }
     }
 
