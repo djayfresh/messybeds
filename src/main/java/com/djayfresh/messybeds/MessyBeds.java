@@ -7,6 +7,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,6 +42,12 @@ public class MessyBeds {
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+
+        @SubscribeEvent
+        public static void onBlockEntitiesRegistry(final RegistryEvent.Register<BlockEntityType<?>> blockRegistryEvent) {
+            // Register a new block here
+            LOGGER.info("HELLO from Register Block Entities");
+        }
 
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {

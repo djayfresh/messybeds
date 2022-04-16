@@ -19,7 +19,7 @@ public class MessyItems {
     public static final BlockItem RED_BED = MessyItems.buildBedItem(MessyBlocks.RED_BED);
     public static final BlockItem ORANGE_BED = MessyItems.buildBedItem(MessyBlocks.ORANGE_BED);
 
-    public static final CreativeModeTab TAB_MESSY_ITEMS = new CreativeModeTab(1, "messyItems") {
+    public static final CreativeModeTab TAB_MESSY_ITEMS = new CreativeModeTab(-1, "messyItems") {
         public ItemStack makeIcon() {
             return new ItemStack(Blocks.WHITE_BED);
         }
