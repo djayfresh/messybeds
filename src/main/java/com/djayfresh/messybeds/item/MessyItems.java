@@ -10,6 +10,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -32,7 +33,8 @@ public class MessyItems {
     }
 
     private static BlockItem buildBedItem(MessyBedBlock bed) {
-        return new BedItem(bed, (new Item.Properties()).stacksTo(1).tab(MessyItems.TAB_MESSY_ITEMS));
+        Properties properties = new Item.Properties().stacksTo(1).tab(MessyItems.TAB_MESSY_ITEMS);
+        return new BedItem(bed, properties);
     }
 
     private static <T extends IForgeRegistryEntry<Item>> T setup(final T entry, final String name) {
