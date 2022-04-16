@@ -1,7 +1,7 @@
 package com.djayfresh.messybeds.item;
 
 import com.djayfresh.messybeds.MessyBeds;
-import com.djayfresh.messybeds.block.MessyBed;
+import com.djayfresh.messybeds.block.MessyBedBlock;
 import com.djayfresh.messybeds.block.MessyBlocks;
 
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +19,7 @@ public class MessyItems {
     public static final BlockItem RED_BED = MessyItems.buildBedItem(MessyBlocks.RED_BED);
     public static final BlockItem ORANGE_BED = MessyItems.buildBedItem(MessyBlocks.ORANGE_BED);
 
-    public static final CreativeModeTab TAB_MESSY_ITEMS = new CreativeModeTab(-1, "messyItems") {
+    public static final CreativeModeTab TAB_MESSY_ITEMS = new CreativeModeTab(1, "messyItems") {
         public ItemStack makeIcon() {
             return new ItemStack(Blocks.WHITE_BED);
         }
@@ -31,7 +31,7 @@ public class MessyItems {
         registry.register(setup(MessyItems.ORANGE_BED, "orange_bed"));
     }
 
-    private static BlockItem buildBedItem(MessyBed bed) {
+    private static BlockItem buildBedItem(MessyBedBlock bed) {
         return new BedItem(bed, (new Item.Properties()).stacksTo(1).tab(MessyItems.TAB_MESSY_ITEMS));
     }
 

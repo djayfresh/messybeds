@@ -16,9 +16,9 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class MessyBlocks {
 
-    public static final MessyBed WHITE_BED = MessyBlocks.buildMessyBed(DyeColor.WHITE);
-    public static final MessyBed RED_BED = MessyBlocks.buildMessyBed(DyeColor.RED);
-    public static final MessyBed ORANGE_BED = MessyBlocks.buildMessyBed(DyeColor.ORANGE);
+    public static final MessyBedBlock WHITE_BED = MessyBlocks.buildMessyBed(DyeColor.WHITE);
+    public static final MessyBedBlock RED_BED = MessyBlocks.buildMessyBed(DyeColor.RED);
+    public static final MessyBedBlock ORANGE_BED = MessyBlocks.buildMessyBed(DyeColor.ORANGE);
 
     public static void registerAll(IForgeRegistry<Block> registry) {
         registry.register(setup(MessyBlocks.WHITE_BED, "white_bed"));
@@ -26,8 +26,8 @@ public class MessyBlocks {
         registry.register(setup(MessyBlocks.ORANGE_BED, "orange_bed"));
     }
 
-    private static MessyBed buildMessyBed(DyeColor color) {
-        return new MessyBed(color, BlockBehaviour.Properties.of(Material.WOOL, (blockState) -> {
+    private static MessyBedBlock buildMessyBed(DyeColor color) {
+        return new MessyBedBlock(color, BlockBehaviour.Properties.of(Material.WOOL, (blockState) -> {
             return blockState.getValue(BedBlock.PART) == BedPart.FOOT ? color.getMaterialColor()
                     : MaterialColor.WOOL;
         }).sound(SoundType.WOOD).strength(0.2F).noOcclusion());

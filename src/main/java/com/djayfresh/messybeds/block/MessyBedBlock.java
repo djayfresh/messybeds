@@ -2,6 +2,8 @@ package com.djayfresh.messybeds.block;
 
 import java.util.List;
 
+import com.djayfresh.messybeds.block.entity.MessyBedEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -21,12 +23,15 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class MessyBed extends BedBlock {
+public class MessyBedBlock extends BedBlock {
+    private DyeColor color;
 
-    public MessyBed(DyeColor dyeColor, Properties properties) {
+    public MessyBedBlock(DyeColor dyeColor, Properties properties) {
         super(dyeColor, properties);
+        this.color = dyeColor;
     }
 
+    @Override()
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player,
             InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if (level.isClientSide) {
@@ -78,5 +83,10 @@ public class MessyBed extends BedBlock {
             list.get(0).stopSleeping();
             return true;
         }
+    }
+
+    @Override()
+    public MessyBedEntity newBlockEntity(BlockPos p_152175_, BlockState p_152176_) {
+        return new MessyBedEntity(p_152175_, p_152176_, this.color);
     }
 }
