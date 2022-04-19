@@ -6,10 +6,7 @@ import com.djayfresh.messybeds.block.entity.MessyEntities;
 import com.djayfresh.messybeds.client.renderer.MessySheets;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.logging.LogUtils;
 import com.mojang.math.Vector3f;
-
-import org.slf4j.Logger;
 
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -38,11 +35,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MessyBedRenderer implements BlockEntityRenderer<MessyBedEntity> {
-    private static final Logger LOGGER = LogUtils.getLogger();
     private final ModelPart headRoot;
     private final ModelPart footRoot;
-    // private Boolean messageShown = false;
-    private Boolean messageShown2 = false;
 
     public MessyBedRenderer(BlockEntityRendererProvider.Context p_173540_) {
         this.headRoot = p_173540_.bakeLayer(ModelLayers.BED_HEAD);
@@ -82,13 +76,18 @@ public class MessyBedRenderer implements BlockEntityRenderer<MessyBedEntity> {
         Material material = Sheets.BED_TEXTURES[entity.getColor().getId()];
         Level level = entity.getLevel();
         if (level != null) {
+
+            long timeOfDay = level.dayTime();
+            long rainingOffset = level.isRaining()? 532 : 0;
+
+            if (((12542-rainingOffset) <= timeOfDay && timeOfDay <= (23459 + rainingOffset)) || level.isThundering()) {
+                material = MessySheets.TURN_DOWN_BED_TEXTURES[entity.getColor().getId()];
+            }
+
             BlockState blockState = entity.getBlockState();
             if (blockState.getValue(MessyBedBlock.MESSY)){
                 material = MessySheets.MESSY_BED_TEXTURES[entity.getColor().getId()];
             }
-
-            long timeOfDay = level.dayTime();
-            long rainingOffset = level.isRaining()? 532 : 0;
 
             // if (level.isNight()){
             //     if (!messageShown) {
@@ -100,17 +99,6 @@ public class MessyBedRenderer implements BlockEntityRenderer<MessyBedEntity> {
             // else {
             //     messageShown = false;
             // }
-
-            if (((12542-rainingOffset) <= timeOfDay && timeOfDay <= (23459 + rainingOffset)) || level.isThundering()) {
-                if (!messageShown2) {
-                    messageShown2 = true;
-                    LOGGER.info("Can Sleep: fancy logic");
-                }
-                material = MessySheets.TURN_DOWN_BED_TEXTURES[entity.getColor().getId()];
-            }
-            else {
-                messageShown2 = false;
-            }
             
             DoubleBlockCombiner.NeighborCombineResult<? extends MessyBedEntity> neighborCombineResult = DoubleBlockCombiner
                     .combineWithNeigbour(MessyEntities.BED.get(), MessyBedBlock::getBlockType,

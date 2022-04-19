@@ -1,48 +1,25 @@
 package com.djayfresh.messybeds.item;
 
 import com.djayfresh.messybeds.MessyBeds;
-import com.djayfresh.messybeds.block.MessyBedBlock;
-import com.djayfresh.messybeds.block.MessyBlocks;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BedItem;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class MessyItems {
-    public static final BlockItem WHITE_BED = MessyItems.buildBedItem(MessyBlocks.WHITE_BED);
-    public static final BlockItem RED_BED = MessyItems.buildBedItem(MessyBlocks.RED_BED);
-    public static final BlockItem ORANGE_BED = MessyItems.buildBedItem(MessyBlocks.ORANGE_BED);
-
     public static final CreativeModeTab TAB_MESSY_ITEMS = new CreativeModeTab(1, "messyItems") {
         public ItemStack makeIcon() {
             return new ItemStack(Blocks.WHITE_BED);
         }
     };
 
-    public static void registerAll(IForgeRegistry<Item> registry) {
-        registry.register(setup(MessyItems.WHITE_BED, "white_bed"));
-        registry.register(setup(MessyItems.RED_BED, "red_bed"));
-        registry.register(setup(MessyItems.ORANGE_BED, "orange_bed"));
-    }
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MessyBeds.MOD_ID);
 
-    private static BlockItem buildBedItem(MessyBedBlock bed) {
-        Properties properties = new Item.Properties().stacksTo(1).tab(MessyItems.TAB_MESSY_ITEMS);
-        return new BedItem(bed, properties);
-    }
-
-    private static <T extends IForgeRegistryEntry<Item>> T setup(final T entry, final String name) {
-        return setup(entry, new ResourceLocation(MessyBeds.MOD_ID, name));
-    }
-
-    private static <T extends IForgeRegistryEntry<Item>> T setup(final T entry, final ResourceLocation registryName) {
-        entry.setRegistryName(registryName);
-        return entry;
+    public static void registerBus(IEventBus eventBus) {
+        MessyItems.ITEMS.register(eventBus);
     }
 }

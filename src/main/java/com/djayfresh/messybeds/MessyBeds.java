@@ -13,7 +13,6 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -45,6 +44,7 @@ public class MessyBeds {
         eventBus.addListener(this::clientSetup);
 
         MessyEntities.registerBus(eventBus);
+        MessyItems.registerBus(eventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -112,14 +112,14 @@ public class MessyBeds {
             MessyBlocks.registerAll(registry);
         }
 
-        @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-            // Register a new block here
-            LOGGER.info("HELLO from Register Item");
-            IForgeRegistry<Item> registry = itemRegistryEvent.getRegistry();
+        // @SubscribeEvent
+        // public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
+        //     // Register a new block here
+        //     LOGGER.info("HELLO from Register Item");
+        //     IForgeRegistry<Item> registry = itemRegistryEvent.getRegistry();
 
-            MessyItems.registerAll(registry);
-        }
+        //     MessyItems.registerAll(registry);
+        // }
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
