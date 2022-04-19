@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "dyed_bed",
+  "ingredients": [
+    {
+      "item": "messybeds:white_bed"
+    },
+    {
+      "item": "minecraft:blue_dye"
+    }
+  ],
+  "result": {
+    "item": "messybeds:blue_bed"
+  }
+}
