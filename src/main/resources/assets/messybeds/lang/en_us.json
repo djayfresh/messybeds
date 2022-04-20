@@ -1,8 +1,21 @@
 {
     "block.messybed.bed.cleaned": "Thank you for making your bed",
     "block.messybed.bed.messy": "Looks like you made a mess of your bed",
-    "block.messybeds.red_bed": "Red Bed",
+    "block.messybeds.black_bed": "Black Bed",
+    "block.messybeds.blue_bed": "Blue Bed",
+    "block.messybeds.brown_bed": "Brown Bed",
+    "block.messybeds.cyan_bed": "Cyan Bed",
+    "block.messybeds.gray_bed": "Gray Bed",
+    "block.messybeds.green_bed": "Green Bed",
+    "block.messybeds.light_blue_bed": "Light Blue Bed",
+    "block.messybeds.light_gray_bed": "Light Gray Bed",
+    "block.messybeds.lime_bed": "Lime Bed",
+    "block.messybeds.magenta_bed": "Magenta Bed",
     "block.messybeds.orange_bed": "Orange Bed",
+    "block.messybeds.pink_bed": "Pink Bed",
+    "block.messybeds.purple_bed": "Purple Bed",
+    "block.messybeds.red_bed": "Red Bed",
     "block.messybeds.white_bed": "White Bed",
+    "block.messybeds.yellow_bed": "Yellow Bed",
     "itemGroup.messyItems": "Messy Beds"
 }
