@@ -144,4 +144,25 @@ public class MessyBedBlock extends BedBlock {
         
         return super.updateShape(blockState, direction, newBlockState, levelAccessor, blockPos, newBlockPos);
     }
+
+    // @Override
+    // public void playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
+    //    if (!level.isClientSide && player.isCreative()) {
+    //       BedPart bedPart = blockState.getValue(PART);
+    //       if (bedPart == BedPart.FOOT) {
+    //          BlockPos blockpos = blockPos.relative(getNeighborDirection(bedPart, blockState.getValue(FACING)));
+    //          BlockState otherBlockState = level.getBlockState(blockpos);
+    //          if (otherBlockState.is(this) && otherBlockState.getValue(PART) == BedPart.HEAD) {
+    //             level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
+    //             level.levelEvent(player, 2001, blockpos, Block.getId(otherBlockState));
+    //          }
+    //       }
+    //    }
+ 
+    //    super.playerWillDestroy(level, blockPos, blockState, player);
+    // }
+
+    // private static Direction getNeighborDirection(BedPart bedPart, Direction direction) {
+    //    return bedPart == BedPart.FOOT ? direction : direction.getOpposite();
+    // }
 }

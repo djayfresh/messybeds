@@ -74,6 +74,6 @@ public class MessyBlocks {
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(final ResourceLocation registryName, T block, CreativeModeTab tab) {
-        return MessyItems.ITEMS.register(registryName.getPath(), () -> new BlockItem(block, new Item.Properties().tab(tab)));
+        return MessyItems.ITEMS.register(registryName.getPath(), () -> new BlockItem(block, new Item.Properties().stacksTo(1).tab(tab)));
     }
 }
