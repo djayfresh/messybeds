@@ -56,6 +56,45 @@ public class MessyBlocks {
         registry.register(setup(MessyBlocks.YELLOW_BED, "yellow_bed", MessyItems.TAB_MESSY_ITEMS));
     }
 
+    public static MessyBedBlock getByDyeColor(DyeColor color){
+        switch(color){
+            case BLACK:
+                return MessyBlocks.BLACK_BED;
+            case BLUE:
+                return MessyBlocks.BLUE_BED;
+            case BROWN:
+                return MessyBlocks.BROWN_BED;
+            case CYAN:
+                return MessyBlocks.CYAN_BED;
+            case GRAY:
+                return MessyBlocks.GRAY_BED;
+            case GREEN:
+                return MessyBlocks.GREEN_BED;
+            case LIGHT_BLUE:
+                return MessyBlocks.LIGHT_BLUE_BED;
+            case LIGHT_GRAY:
+                return MessyBlocks.LIGHT_GRAY_BED;
+            case LIME:
+                return MessyBlocks.LIME_BED;
+            case MAGENTA:
+                return MessyBlocks.MAGENTA_BED;
+            case ORANGE:
+                return MessyBlocks.ORANGE_BED;
+            case PINK:
+                return MessyBlocks.PINK_BED;
+            case PURPLE:
+                return MessyBlocks.PURPLE_BED;
+            case RED:
+                return MessyBlocks.RED_BED;
+            case WHITE:
+                return MessyBlocks.WHITE_BED;
+            case YELLOW:
+                return MessyBlocks.YELLOW_BED;
+        }
+
+        return MessyBlocks.WHITE_BED;
+    }
+
     private static MessyBedBlock buildMessyBed(DyeColor color) {
         return new MessyBedBlock(color, BlockBehaviour.Properties.of(Material.WOOL, (blockState) -> {
             return blockState.getValue(BedBlock.PART) == BedPart.FOOT ? color.getMaterialColor()
