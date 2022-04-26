@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "messybeds:red_bed",
+    "messybeds:black_bed",
+    "messybeds:blue_bed",
+    "messybeds:brown_bed",
+    "messybeds:cyan_bed",
+    "messybeds:gray_bed",
+    "messybeds:green_bed",
+    "messybeds:light_blue_bed",
+    "messybeds:light_gray_bed",
+    "messybeds:lime_bed",
+    "messybeds:magenta_bed",
+    "messybeds:orange_bed",
+    "messybeds:pink_bed",
+    "messybeds:purple_bed",
+    "messybeds:white_bed",
+    "messybeds:yellow_bed"
+  ]
+}
