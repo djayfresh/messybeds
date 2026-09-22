@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "messybeds:pink_bed",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "messybeds:pink_bed"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "messybeds:blocks/pink_bed"
+}

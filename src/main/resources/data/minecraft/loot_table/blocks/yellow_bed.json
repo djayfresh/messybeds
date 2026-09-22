@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:yellow_bed",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "messybeds:yellow_bed"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:blocks/yellow_bed"
+}

@@ -1,28 +1,53 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
+### Gradle ###
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
 
-# idea
-out
-*.ipr
+### IntelliJ IDEA ###
+.idea/
 *.iws
 *.iml
-.idea
+*.ipr
+out/
+!**/src/**/out/
 
-# gradle
-build
-.gradle
+.run/
 
-# other
-eclipse
-run
+### Eclipse ###
+.apt_generated
+.classpath
+.eclipse/
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/**/bin/
 
-# Files from Forge MDK
-forge*changelog.txt
+### VS Code ###
+.vscode/
 
-# reference
-ref
+### Mac OS ###
+.DS_Store
+
+### Minecraft Modding ###
+run/
+!**/src/**/run/
+**/src/generated/**/.cache/
+repo/
+!**/src/**/repo/
+
+### Legacy MCP workspaces (kept for reference, build output excluded) ###
+
+
+
+
+
+### Legacy Forge 1.18.2 workspace ###
+legacy/forge-1.18.2/build/
+legacy/forge-1.18.2/run/
+legacy/forge-1.18.2/.gradle/
+
+__pycache__/
