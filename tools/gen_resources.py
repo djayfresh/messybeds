@@ -16,7 +16,7 @@ import json
 import shutil
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 # Decompiled 26.3 client, used only to read vanilla's bed textures for the leg rows.
 VANILLA_JAR = Path(r"C:/dev/FreshCookieMod/build/moddev/artifacts/minecraft-patched-26.3.0.8-beta-sources.jar")
@@ -71,7 +71,8 @@ def gen_textures() -> None:
             # (sampled by the main box) and rows 13..16 hold the small leg faces. Take the leg rows
             # from vanilla's own texture and drop the sliced blanket strip into rows 7..13.
             south = vanilla_foot_south(color).copy()
-            south.paste(sheet.crop(FOOT_SOUTH), (0, 7))
+            # The box-UV bottom face is stored upside down; vanilla wants the blanket on top and the rail below.
+            south.paste(ImageOps.flip(sheet.crop(FOOT_SOUTH)), (0, 7))
             south.save(out / f"{color}_bed_{look}_foot_south.png")
 
 

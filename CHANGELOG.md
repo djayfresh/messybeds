@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 (2026-09-22)
+
+- Fix the foot end of messy and turned-down beds rendering upside down (rail above the blanket).
+
 ## 2.0.0 (2026-09-22) - Minecraft 26.3, NeoForge
 
 - Rewritten for NeoForge 26.3. Beds are rendered with JSON block models; the block entity and renderer are gone.

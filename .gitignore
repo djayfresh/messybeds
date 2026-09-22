@@ -51,3 +51,4 @@ legacy/forge-1.18.2/run/
 legacy/forge-1.18.2/.gradle/
 
 __pycache__/
+tools/out/
