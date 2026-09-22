@@ -104,13 +104,6 @@ public class MessyBedBlock extends BedBlock {
         level.scheduleTick(pos, this, Config.TURN_DOWN_CHECK_INTERVAL.get());
     }
 
-    /** Schedules the first turn-down check for a bed that was placed without going through {@link #onPlace}. */
-    public static void scheduleFirstTick(Level level, BlockPos pos, BlockState state) {
-        if (state.getBlock() instanceof MessyBedBlock bed && state.getValue(PART) == BedPart.HEAD) {
-            level.scheduleTick(pos, bed, 1);
-        }
-    }
-
     /** Writes a boolean property to this half and, if present, the other half, without triggering shape updates between them. */
     private void setBothHalves(Level level, BlockPos pos, BlockState state, BooleanProperty property, boolean value) {
         level.setBlock(pos, state.setValue(property, value), STATE_UPDATE_FLAGS);

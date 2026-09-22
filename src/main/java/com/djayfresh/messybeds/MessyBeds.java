@@ -1,6 +1,7 @@
 package com.djayfresh.messybeds;
 
 import com.djayfresh.messybeds.event.ModBusEvents;
+import com.djayfresh.messybeds.registry.ModAttachments;
 import com.djayfresh.messybeds.registry.ModBlocks;
 import com.djayfresh.messybeds.registry.ModItems;
 import com.djayfresh.messybeds.registry.ModLootModifiers;
@@ -40,6 +41,7 @@ public class MessyBeds {
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModLootModifiers.SERIALIZERS.register(modEventBus);
+        ModAttachments.ATTACHMENTS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(ModBusEvents::onExtendPoiTypes);
