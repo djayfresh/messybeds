@@ -2,6 +2,8 @@
 
 A NeoForge mod for Minecraft 26.3 that makes beds behave a little more like real beds.
 
+Downloads: [Planet Minecraft](https://www.planetminecraft.com/mod/messy-beds/) | [GitHub releases](https://github.com/djayfresh/messybeds/releases)
+
 - **Sleeping makes a mess.** When you get out of a bed, both halves switch to the messy look and stay that way.
 - **Make your bed.** Right-click a messy bed to tidy it. It cannot be slept in until it is made.
 - **Turned down at bedtime.** While the game would let you sleep (dark outside, or a thunderstorm), a clean bed shows the blanket folded back. This follows vanilla's bed rules, so it also respects dimension and datapack overrides.
