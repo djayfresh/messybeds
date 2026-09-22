@@ -1,7 +1,124 @@
 {
   "variants": {
-    "": {
-      "model": "messybeds:block/messybed"
+    "facing=north,messy=false,part=head,turned_down=false": {
+      "model": "minecraft:block/orange_bed_head"
+    },
+    "facing=north,messy=false,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_head"
+    },
+    "facing=north,messy=true,part=head,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_head"
+    },
+    "facing=north,messy=true,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_head"
+    },
+    "facing=north,messy=false,part=foot,turned_down=false": {
+      "model": "minecraft:block/orange_bed_foot"
+    },
+    "facing=north,messy=false,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_foot"
+    },
+    "facing=north,messy=true,part=foot,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_foot"
+    },
+    "facing=north,messy=true,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_foot"
+    },
+    "facing=east,messy=false,part=head,turned_down=false": {
+      "model": "minecraft:block/orange_bed_head",
+      "y": 90
+    },
+    "facing=east,messy=false,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_head",
+      "y": 90
+    },
+    "facing=east,messy=true,part=head,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_head",
+      "y": 90
+    },
+    "facing=east,messy=true,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_head",
+      "y": 90
+    },
+    "facing=east,messy=false,part=foot,turned_down=false": {
+      "model": "minecraft:block/orange_bed_foot",
+      "y": 90
+    },
+    "facing=east,messy=false,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_foot",
+      "y": 90
+    },
+    "facing=east,messy=true,part=foot,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_foot",
+      "y": 90
+    },
+    "facing=east,messy=true,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_foot",
+      "y": 90
+    },
+    "facing=south,messy=false,part=head,turned_down=false": {
+      "model": "minecraft:block/orange_bed_head",
+      "y": 180
+    },
+    "facing=south,messy=false,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_head",
+      "y": 180
+    },
+    "facing=south,messy=true,part=head,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_head",
+      "y": 180
+    },
+    "facing=south,messy=true,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_head",
+      "y": 180
+    },
+    "facing=south,messy=false,part=foot,turned_down=false": {
+      "model": "minecraft:block/orange_bed_foot",
+      "y": 180
+    },
+    "facing=south,messy=false,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_foot",
+      "y": 180
+    },
+    "facing=south,messy=true,part=foot,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_foot",
+      "y": 180
+    },
+    "facing=south,messy=true,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_foot",
+      "y": 180
+    },
+    "facing=west,messy=false,part=head,turned_down=false": {
+      "model": "minecraft:block/orange_bed_head",
+      "y": 270
+    },
+    "facing=west,messy=false,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_head",
+      "y": 270
+    },
+    "facing=west,messy=true,part=head,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_head",
+      "y": 270
+    },
+    "facing=west,messy=true,part=head,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_head",
+      "y": 270
+    },
+    "facing=west,messy=false,part=foot,turned_down=false": {
+      "model": "minecraft:block/orange_bed_foot",
+      "y": 270
+    },
+    "facing=west,messy=false,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_turned_down_foot",
+      "y": 270
+    },
+    "facing=west,messy=true,part=foot,turned_down=false": {
+      "model": "messybeds:block/orange_bed_messy_foot",
+      "y": 270
+    },
+    "facing=west,messy=true,part=foot,turned_down=true": {
+      "model": "messybeds:block/orange_bed_messy_foot",
+      "y": 270
     }
   }
 }

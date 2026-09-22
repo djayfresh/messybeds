@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:lime_bed",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "messybeds:lime_bed"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:blocks/lime_bed"
+}

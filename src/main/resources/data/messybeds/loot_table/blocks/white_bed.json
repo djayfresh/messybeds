@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "messybeds:white_bed",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "messybeds:white_bed"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "messybeds:blocks/white_bed"
+}

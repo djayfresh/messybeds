@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:orange_bed",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "messybeds:orange_bed"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:blocks/orange_bed"
+}

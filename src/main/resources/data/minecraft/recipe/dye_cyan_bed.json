@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "bed_dye",
+  "ingredients": [
+    "minecraft:cyan_dye",
+    [
+      "minecraft:white_bed",
+      "minecraft:orange_bed",
+      "minecraft:magenta_bed",
+      "minecraft:light_blue_bed",
+      "minecraft:yellow_bed",
+      "minecraft:lime_bed",
+      "minecraft:pink_bed",
+      "minecraft:gray_bed",
+      "minecraft:light_gray_bed",
+      "minecraft:purple_bed",
+      "minecraft:blue_bed",
+      "minecraft:brown_bed",
+      "minecraft:green_bed",
+      "minecraft:red_bed",
+      "minecraft:black_bed",
+      "messybeds:white_bed",
+      "messybeds:orange_bed",
+      "messybeds:magenta_bed",
+      "messybeds:light_blue_bed",
+      "messybeds:yellow_bed",
+      "messybeds:lime_bed",
+      "messybeds:pink_bed",
+      "messybeds:gray_bed",
+      "messybeds:light_gray_bed",
+      "messybeds:purple_bed",
+      "messybeds:blue_bed",
+      "messybeds:brown_bed",
+      "messybeds:green_bed",
+      "messybeds:red_bed",
+      "messybeds:black_bed"
+    ]
+  ],
+  "result": {
+    "id": "messybeds:cyan_bed"
+  }
+}

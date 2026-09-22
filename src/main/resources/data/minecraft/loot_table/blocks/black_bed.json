@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "minecraft:black_bed",
+            "state": {
+              "part": "head"
+            }
+          },
+          "name": "messybeds:black_bed"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:blocks/black_bed"
+}
