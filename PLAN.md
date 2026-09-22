@@ -21,10 +21,13 @@
 - NeoForge 26.3 is still beta only (26.3.0.10-beta is the latest on the project listing; FreshCookieMod is on 26.3.0.8-beta). Same toolchain as FreshCookieMod: NeoForge ModDev Gradle plugin 2.0.147, Gradle 9.2.1, Java 25.
 - Mod ids are still `messybeds`; `Identifier` replaces `ResourceLocation`; `Component.translatable` replaces `TranslatableComponent`; `player.sendOverlayMessage` replaces `displayClientMessage(..., true)`.
 
-## Phase 0: Tag history and branch
-1. Tag current `master` as `v1.0-mc1.18.2` (the only complete 1.18.2 state; it was never released but it works in game per the commit log).
-2. Move the 1.18.2 tree under `legacy/forge-1.18.2/` on the port branch so the old renderer and textures stay readable next to the new code.
-3. Branch `neoforge-26.3`.
+## Phase 0: Tag history and branch  — DONE 2026-09-22
+1. Tagged `master` as `v1.0-mc1.18.2` (the only complete 1.18.2 state; never released but works in game per the commit log).
+2. Branched `neoforge-26.3` and moved the 1.18.2 tree under `legacy/forge-1.18.2/` so the old renderer and textures stay readable next to the new code.
+3. Tag and branch are local only until pushed.
+
+## Constraint: coexist with Fresh Cookies
+Messy Beds and Fresh Cookies (`freshcaa`) must load side by side in the same instance. Keep the mod id `messybeds` and package `com.djayfresh.messybeds`, never share registry names or mixins, and override only vanilla files Fresh Cookies does not touch (bed recipes, bed loot tables, `#minecraft:beds`). Both mods pin the same NeoForge line, so bump `neo_version` in both when the 26.3 release lands. Every verification run in Phases 1-3 uses the existing MultiMC instance from the Fresh Cookies port with both jars installed.
 
 ## Phase 1: Port to NeoForge 26.3 (rewrite, guided by the old code)
 Reuse the FreshCookieMod skeleton: `build.gradle`, `gradle.properties`, `settings.gradle`, wrapper, `src/main/templates/META-INF/neoforge.mods.toml`, `.gitignore`. `mod_id=messybeds`, `mod_group_id=com.djayfresh.messybeds`, `mod_version=2.0.0`.
