@@ -63,7 +63,9 @@ Reuse the FreshCookieMod skeleton: `build.gradle`, `gradle.properties`, `setting
 ### Cleanup
 - Remove all `HELLO` logging and commented code; README describing the mod (messy after sleeping, clean on click, turned down when you can sleep, all world beds are messy beds, config keys, straw beds are untouched).
 
-## Phase 2: World gen: every bed in every world is a messy bed
+## Phase 2: World gen: every bed in every world is a messy bed  — DONE 2026-09-22
+Status: commit `01c4e76`. Verified on the dedicated server over RCON: a freshly generated plains village had 10/10 bed heads as `messybeds:*_bed` and 9 of 11 villagers slept in them within 30 s of nightfall; a taiga village generated with replacement disabled (11 vanilla beds saved to disk, simulating a world made without the mod) was fully converted on the next load with replacement enabled (11/11, both halves, facing kept) and 10 villagers slept in the converted beds. Not verified without a player: the placed-bed swap (`BlockEvent.EntityPlaceEvent`) and the messy-on-wake / clean-on-click cycle; both are on the MultiMC checklist. Gametests were skipped in favour of the RCON checks. The structure processor variant was not needed.
+
 Requirement: any world with the mod installed has its vanilla beds replaced, including villages generated before the mod was added.
 
 ### Design
