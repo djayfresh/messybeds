@@ -87,7 +87,9 @@ Requirement: any world with the mod installed has its vanilla beds replaced, inc
 5. Placement swap handler.
 6. Manual verification on the dedicated server (RCON, same harness as FreshCookieMod): new world -> locate village -> `setblock`/`execute if block` checks show only `messybeds:*_bed`; stop the server, drop the mod, generate a village, re-add the mod, load: village beds are converted; villagers sleep at night; sleeping in a village bed leaves it messy; right-click cleans it; chest loot never contains `minecraft:*_bed`.
 
-## Phase 3: Release
+## Phase 3: Release  — DONE 2026-09-22
+Status: user verified everything in MultiMC alongside Fresh Cookies (sleep -> messy, click -> clean, placed vanilla beds swap, turn-down look, creative tabs). README, CHANGELOG and a generated logo added; merged to `master`, tagged `v2.0.0-mc26.3`.
+
 - README, CHANGELOG, `mod_version` 2.0.0, logo (`logoFile`), merge `neoforge-26.3` -> `master`, tag `v2.0.0-mc26.3`.
 - Bump `neo_version` when the 26.3 release build lands (same note as FreshCookieMod).
 
